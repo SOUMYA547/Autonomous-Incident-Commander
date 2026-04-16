@@ -1,15 +1,19 @@
-import os
+import random
 
-def kill_db():
-    os.system("docker stop aiops-agentic-system-db-1")
+def generate_logs():
+    normal = [
+        "user login success",
+        "payment processed",
+        "request completed"
+    ]
 
-def high_latency():
-    print("Simulating latency spike...")
+    errors = [
+        "DB error connection failed",
+        "timeout error in service",
+        "500 internal server error"
+    ]
 
-def inject_failure():
-    choice = input("Choose failure (db/latency): ")
+    logs = normal * 5 + random.sample(errors, 2)
+    random.shuffle(logs)
 
-    if choice == "db":
-        kill_db()
-    elif choice == "latency":
-        high_latency()
+    return logs

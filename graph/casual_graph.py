@@ -4,14 +4,11 @@ class CausalGraph:
     def __init__(self):
         self.graph = nx.DiGraph()
 
-    def build_graph(self, dependencies):
-        for service, deps in dependencies.items():
-            for dep in deps:
-                self.graph.add_edge(dep, service)
+    def add_relation(self, source, target):
+        self.graph.add_edge(source, target)
 
-    def trace_failure(self, failed_service):
-        causes = list(nx.ancestors(self.graph, failed_service))
-        return causes
-
-    def visualize(self):
-        print(self.graph.edges())
+    def find_root_cause(self):
+        for node in self.graph.nodes:
+            if self.graph.in_degree(node) == 0:
+                return node
+        return None

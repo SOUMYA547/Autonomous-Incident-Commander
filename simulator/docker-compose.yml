@@ -1,16 +1,12 @@
 version: '3'
 services:
   auth:
-    build: ./services/auth_service
-    ports:
-      - "8001:8001"
+    image: python:3.9
+    command: python -m http.server 8001
 
   payment:
-    build: ./services/payment_service
-    ports:
-      - "8002:8002"
+    image: python:3.9
+    command: python -m http.server 8002
 
   db:
     image: postgres
-    environment:
-      POSTGRES_PASSWORD: example
